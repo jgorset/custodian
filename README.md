@@ -11,9 +11,7 @@ them on port 5100:
 
 ## Augmenting Custodian
 
-Custodian convenes statistics from *samplers*:
-
-    # samplers/who.rb
+Custodian convenes statistics from *samplers*, which are just simple Ruby classes:
 
     class Who << Custodian::Sampler
 
