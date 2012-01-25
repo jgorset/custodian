@@ -10,15 +10,6 @@ module Custodian
     def self.run!(arguments)
       command, options = arguments.shift, arguments
 
-      #aliases = {
-      #  "-h"         => "help",
-      #  "--help"     => "help",
-      #  "-v"         => "version",
-      #  "--version"  => "version"
-      #}
-      #
-      #command = aliases[command] || command
-
       unless command
         usage
         exit 1
