@@ -30,7 +30,7 @@ Custodian ships with samplers for popular metrics such as CPU, RAM and disk usag
 
 Samplers are just Ruby classes!
 
-``ruby
+```ruby
 class Hits < Custodian::Samplers::Sampler
   describe "Samples hits to NGINX"
 
@@ -39,7 +39,7 @@ class Hits < Custodian::Samplers::Sampler
   end
 
 end
-``
+```
 
 ### Clients
 
