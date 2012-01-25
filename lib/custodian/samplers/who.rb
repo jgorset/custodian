@@ -13,7 +13,7 @@ module Custodian
 
       # Return a list of strings describing logged in users.
       def sample
-        `who`.lines.collect { |line| line.split.first }
+        `who`.lines.collect { |line| line.split.first }.uniq
       end
 
     end
