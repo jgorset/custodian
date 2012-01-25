@@ -3,28 +3,16 @@ require "json"
 require "rack"
 
 module Custodian
+
   class Server
-
-    def call(env)
-      status = 200
-
-      headers = {
-        "Content-Type" => "application/json"
-      }
-
-      json = Hash.new.tap do |hash|
-        Custodian::Samplers.sample.each { |report| hash[report.name] = report.value }
-      end.to_json
-
-      [status, headers, [json]]
-    end
+    autoload :Application, "custodian/server/application"
 
     # Start the server.
     def self.start(options)
       options = parse options
 
       Rack::Server.start(
-        :app   => Custodian::Server.new,
+        :app   => Custodian::Server::Application.new,
         :Port  => options[:port]
       )
     end
@@ -54,6 +42,10 @@ module Custodian
         o.on "-i", "--interval TIME", "Sample every TIME seconds" do |interval|
           options[:interval] = interval
         end
+        
+        o.on "-s", "--samplers PATH", "Load samplers from the given path" do |samplers|
+          options[:samplers] = samplers
+        end
       end.parse!(arguments)
 
       options
@@ -68,4 +60,5 @@ module Custodian
     end
 
   end
+
 end

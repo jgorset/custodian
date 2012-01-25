@@ -1,3 +1,5 @@
+require "json"
+
 module Custodian
 
   # Reports describe the outcome of one particular sample.
@@ -16,6 +18,12 @@ module Custodian
     # Return the value of this report.
     def value
       @sampler.sample
+    end
+
+    def to_hash
+      {
+        name => value
+      }
     end
 
   end
