@@ -38,11 +38,12 @@ Samplers are just simple Ruby classes:
 
     end
 
-You can load your own samplers with the `--samplers` option:
+You can load additional samplers with the `--samplers` option:
 
     $ custodian start --samplers=~/.custodian/samplers
 
 ### Clients
 
-Unless you're crazy about JSON, you'll probably want to consume Custodian's API
-with a *client*. Unfortunately, there are no clients for Custodian yet — you should make one!
+Unless you're crazy about JSON, you'll want to consume Custodian's API
+with a *client*. Unfortunately, there are no clients for Custodian yet.
+You should make one!
