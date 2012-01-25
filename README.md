@@ -35,7 +35,7 @@ class Hits < Custodian::Samplers::Sampler
   describe "Samples hits to NGINX"
 
   def sample
-    open("/var/log/nginx/access.log").lines.count
+    open("/var/log/nginx/access.log") { |file| file.lines.count }
   end
 
 end
