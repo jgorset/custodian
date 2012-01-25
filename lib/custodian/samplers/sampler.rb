@@ -11,7 +11,7 @@ module Custodian
       def sample!
         sample
       rescue Exception => e
-        raise Error, "An error occurred with #{self.class.name}: #{e.message}"
+        raise Error, e.message
       end
 
       def self.describe(description)

@@ -31,7 +31,7 @@ module Custodian
         begin
           Custodian::Report.new(sampler.new)
         rescue Sampler::Error => e
-          warn e.message
+          warn "An error occurred with #{sampler.name}: #{e.message}"
         end
       end.compact
     end
