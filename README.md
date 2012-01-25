@@ -38,7 +38,7 @@ Samplers are just simple Ruby classes:
 
     end
 
-You can load your own samplers with the --samplers option:
+You can load your own samplers with the `--samplers` option:
 
     $ custodian start --samplers=~/.custodian/samplers
 
