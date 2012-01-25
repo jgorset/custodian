@@ -18,10 +18,8 @@ module Custodian
             compatible_samplers.each do |sampler|
               puts "   " + sampler.name.demodulize.underscore  + " " * (20 - sampler.name.demodulize.underscore.length) + sampler.description
             end
-          end
-
-          if compatible_samplers.empty? && incompatible_samplers.empty?
-            puts ""
+            
+            puts "" unless incompatible_samplers.empty?
           end
 
           unless incompatible_samplers.empty?
