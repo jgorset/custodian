@@ -16,7 +16,7 @@ module Custodian
         command_exists? "uptime"
       end
 
-      # Return a list of strings describing logged in users.
+      # Return an array with values describing the load avarages.
       def sample
         `uptime`[/load averages: (.*)/, 1].split
       end
