@@ -4,7 +4,7 @@ module Custodian
 
       class Version < Command
 
-        def call(options)
+        def initialize(options)
           puts "custodian version #{Custodian::VERSION}"
         end
 

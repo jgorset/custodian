@@ -8,9 +8,8 @@ module Custodian
       #
       # Starts the custodian server.
       class Start < Command
-        include Custodian::CLI::Utilities
 
-        def call(options)
+        def initialize(options)
           options = parse options
 
           Rack::Server.start(
@@ -21,22 +20,14 @@ module Custodian
 
         private
 
-        def default_options
-          {
+        # Parse command-line arguments.
+        def parse(arguments)
+          options = {
             :port     => 5100,
             :interval => 60
           }
-        end
 
-        # Parse command-line arguments.
-        def parse(arguments)
-          options = default_options
-
-          OptionParser.new do |o|
-            o.program_name = "custodian start"
-            o.banner = "Usage: custodian start [options]"
-            o.version = Custodian::VERSION
-
+          super arguments do |o|
             o.on "-p", "--port PORT", "Listen on the given port" do |port|
               options[:port] = port
             end
@@ -48,11 +39,9 @@ module Custodian
             o.on "-s", "--samplers PATH", "Load samplers from the given path" do |samplers|
               options[:samplers] = samplers
             end
-          end.parse!(arguments)
+          end
 
           options
-        rescue OptionParser::InvalidOption => e
-          error e
         end
 
       end

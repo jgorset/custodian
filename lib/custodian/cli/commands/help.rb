@@ -4,7 +4,7 @@ module Custodian
 
       class Help < Command
 
-        def call(options)
+        def initialize(options)
           puts help
         end
 

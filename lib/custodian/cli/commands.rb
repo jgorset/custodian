@@ -13,7 +13,7 @@ module Custodian
       # Returns the command matching the given <tt>identifier</tt>.
       def self.find(identifier)
         each do |command|
-          return command.new if command.name.split("::").last.downcase == identifier
+          return command if command.names.include? identifier
         end
 
         nil

@@ -20,7 +20,7 @@ module Custodian
       command = aliases[command] || command
 
       if c = Commands.find(command)
-        c.call(options)
+        c.invoke(options)
       else
         error "'#{command}' is not a custodian command. See 'custodian --help'."
       end
