@@ -13,6 +13,14 @@ module Custodian
         raise NotImplementedError
       end
 
+      def self.describe(description)
+        @description = description
+      end
+
+      def self.description
+        @description
+      end
+
       private
 
       # Determines whether the given <tt>command</tt> exists on the system.

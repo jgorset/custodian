@@ -1,3 +1,5 @@
+require "active_support/core_ext/string/inflections"
+
 module Custodian
   module CLI
     module Commands
@@ -14,11 +16,11 @@ module Custodian
             puts ""
 
             compatible_samplers.each do |sampler|
-              puts "   " + sampler.name.split("::").last.downcase
+              puts "   " + sampler.name.demodulize.underscore  + " " * (20 - sampler.name.demodulize.underscore.length) + sampler.description
             end
           end
 
-          unless compatible_samplers.empty? && incompatible_samplers.empty?
+          if compatible_samplers.empty? && incompatible_samplers.empty?
             puts ""
           end
 

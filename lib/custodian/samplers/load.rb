@@ -10,6 +10,7 @@ module Custodian
     # This sampler should be compatible with any system that has
     # the <tt>uptime</tt> command.
     class Load < Custodian::Samplers::Sampler
+      describe "Load averages"
 
       def compatible?
         command_exists? "uptime"

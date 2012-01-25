@@ -10,6 +10,7 @@ module Custodian
     # This sampler should be compatible with any system that has
     # the <tt>who</tt> command.
     class Who < Custodian::Samplers::Sampler
+      describe "Logged in users"
 
       def compatible?
         command_exists? "who"
