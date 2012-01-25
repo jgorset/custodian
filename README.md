@@ -12,9 +12,22 @@ them over HTTP on port 5100:
 
     $ custodian start --port=5100 --interval=60
 
-#### Augmenting Custodian
+#### Samplers
 
-Custodian aggregates statistics from *samplers*, which are just simple Ruby classes:
+Custodian aggregates statistics from *samplers*, and ships with samplers for
+popular metrics such as CPU, RAM and disk usage.
+
+    $ custodian samplers
+    15 compatible samplers:
+
+    cpu         CPU statistics
+    ram         RAM statistics
+    disk        Disk statistics
+    ...
+
+##### Writing your own sampler
+
+Samplers are just simple Ruby classes:
 
     class Who << Custodian::Samplers::Sampler
 
@@ -25,10 +38,9 @@ Custodian aggregates statistics from *samplers*, which are just simple Ruby clas
 
     end
 
-Custodian ships with samplers for popular metrics such as CPU, RAM and disk usage, but
-you can add your own with the `--samplers` option:
+You can load your own samplers with the --samplers option:
 
-    $ custodian start --samplers=/home/jgorset/samplers ...
+    $ custodian start --samplers=~/.custodian/samplers
 
 ### Clients
 
