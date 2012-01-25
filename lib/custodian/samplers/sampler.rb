@@ -4,13 +4,14 @@ module Custodian
     # Base class for samplers.
     class Sampler
 
-      # Determines whether this sampler is compatible with the system.
-      def compatible?
-        true
-      end
-
       def sample
         raise NotImplementedError
+      end
+
+      def sample!
+        sample
+      rescue Exception => e
+        raise Error, "An error occurred with #{self.class.name}: #{e.message}"
       end
 
       def self.describe(description)
@@ -23,11 +24,12 @@ module Custodian
 
       private
 
-      # Determines whether the given <tt>command</tt> exists on the system.
-      def command_exists?(command)
-        system "which #{command} > /dev/null 2>&1"
+      # Register samplers for classes that inherit from this class.
+      def self.inherited(sampler)
+        Custodian::Samplers.register(sampler)
       end
 
+      class Error < StandardError; end
     end
 
   end

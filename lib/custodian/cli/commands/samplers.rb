@@ -7,28 +7,13 @@ module Custodian
       class Samplers < Command
 
         def initialize(options)
-          samplers                = Custodian::Samplers.list
-          compatible_samplers     = samplers.select { |s| s.new.compatible? }
-          incompatible_samplers   = samplers.reject { |s| s.new.compatible? }
+          samplers = Custodian::Samplers.list
 
-          unless compatible_samplers.empty?
-            puts "#{compatible_samplers.count} compatible samplers:"
-            puts ""
+          puts "#{samplers.count} samplers:"
+          puts ""
 
-            compatible_samplers.each do |sampler|
-              puts "   " + sampler.name.demodulize.underscore  + " " * (20 - sampler.name.demodulize.underscore.length) + sampler.description
-            end
-            
-            puts "" unless incompatible_samplers.empty?
-          end
-
-          unless incompatible_samplers.empty?
-            puts "#{incompatible_samplers.count} incompatible samplers:"
-            puts ""
-
-            incompatible_samplers.each do |sampler|
-              puts "   " + sampler.name.split("::").last.downcase
-            end
+          samplers.each do |sampler|
+            puts "   " + sampler.name.demodulize.underscore  + " " * (20 - sampler.name.demodulize.underscore.length) + sampler.description
           end
 
         end

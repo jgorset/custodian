@@ -2,26 +2,21 @@ module Custodian
   module Samplers    
     autoload :Sampler,    "custodian/samplers/sampler"
 
-    autoload :Who,        "custodian/samplers/who"
-    autoload :Load,       "custodian/samplers/load"
-
-    @@samplers = [
-      Who, Load
-    ]
+    @samplers = []
 
     # List all samplers.
     def self.list
-      @@samplers
+      @samplers
     end
 
     # Register the given <tt>sampler</tt>.
     def self.register(sampler)
-      @@samplers << sampler
+      @samplers << sampler
     end
 
     # Remove the given <tt>sampler</tt>.
     def self.remove(sampler)
-      @@samplers.delete(sampler)
+      @samplers.delete(sampler)
     end
 
     # Replace the given sampler <tt>a</tt> with sampler <tt>b</tt>.
@@ -30,13 +25,28 @@ module Custodian
       register b
     end
 
-    # Return a list of compatible samplers.
+    # Produce reports for each of the samplers.
     def self.sample
-      @@samplers.collect do |sampler|
-        sampler = sampler.new
-
-        Custodian::Report.new(sampler) if sampler.compatible?
+      @samplers.collect do |sampler|
+        begin
+          Custodian::Report.new(sampler.new)
+        rescue Sampler::Error => e
+          warn e.message
+        end
       end.compact
     end
+
+    # Load samplers for darwin.
+    if RUBY_PLATFORM.downcase.include? "darwin"
+      Dir[File.dirname(__FILE__) + "/samplers/darwin/*"].each { |file| require file }
+    end
+
+    # Load samplers for linux.
+    if RUBY_PLATFORM.downcase.include? "linux"
+      Dir[File.dirname(__FILE__) + "/samplers/linux/*"].each { |file| require file }
+    end
+    
+    # Load platform-agnostic samplers.
+    Dir[File.dirname(__FILE__) + "/samplers/agnostic/*"].each { |file| require file }
   end
 end

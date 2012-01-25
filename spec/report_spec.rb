@@ -7,12 +7,8 @@ describe Custodian::Report do
     @reports = Custodian::Samplers.sample
   end
 
-  it "has a name" do
-    @reports.first.name
-  end
-
-  it "has a value" do
-    @reports.first.value
+  it "serializes to a hash" do
+    @reports.first.to_hash
   end
 
 end

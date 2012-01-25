@@ -1,3 +1,5 @@
+require "json"
+
 module Custodian
 
   # <tt>Custodian::API</tt> is a Rack-compatible application
