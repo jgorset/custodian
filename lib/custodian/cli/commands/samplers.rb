@@ -32,7 +32,7 @@ module Custodian
           end
 
         end
-        
+
         def self.description
           "Show samplers"
         end
