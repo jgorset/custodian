@@ -14,33 +14,32 @@ them over HTTP on port 5100:
 
 #### Samplers
 
-Custodian aggregates statistics from *samplers*, and ships with samplers for
-popular metrics such as CPU, RAM and disk usage.
+Custodian ships with samplers for popular metrics such as CPU, RAM and disk usage:
 
     $ custodian samplers
-    15 compatible samplers:
+    15 samplers:
+    
+      cpu       Samples CPU usage
+      ram       Samples RAM usage
+      disk      Samples disk usage
+      load      Samples load average
+      who       Samples logged in users
+      ...
 
-    cpu         CPU statistics
-    ram         RAM statistics
-    disk        Disk statistics
-    ...
+##### Making your own samplers
 
-##### Writing your own sampler
+Samplers are just Ruby classes!
 
-Samplers are just simple Ruby classes:
+``ruby
+class Hits < Custodian::Samplers::Sampler
+  describe "Samples hits to NGINX"
 
-    class Who < Custodian::Samplers::Sampler
-      describe "Logged in users"
+  def sample
+    open("/var/log/nginx/access.log").lines.count
+  end
 
-      def sample
-        `who`.lines.collect { |line| line.split.first }
-      end
-
-    end
-
-You can load additional samplers with the `--samplers` option:
-
-    $ custodian start --samplers=~/.custodian/samplers
+end
+``
 
 ### Clients
 
