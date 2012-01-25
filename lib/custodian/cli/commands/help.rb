@@ -3,23 +3,27 @@ module Custodian
     module Commands
 
       class Help < Command
+        include Custodian::CLI::Utilities
 
         def initialize(options)
-          puts help
-        end
+          usage
+          puts ""
 
-        private
-
-        def help
-          string =  "usage: custodian <command> [options]\n"
-          string << "\n"
-
-          string << "Commands:\n"
+          puts "Commands:\n"
           Custodian::CLI::Commands.each do |command|
-            string << "   " + command.name.split("::").last.downcase + "\n"
+            puts "   " + command.names.first + " " * (15 - command.names.first.length) + command.description
           end
 
-          string
+          puts ""
+          puts "See 'custodian <command> --help' for more information on a particular command."
+        end
+
+        def self.names
+          super + ["-h", "--help"]
+        end
+        
+        def self.description
+          "Show this screen"
         end
 
       end

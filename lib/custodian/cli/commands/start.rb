@@ -4,9 +4,6 @@ module Custodian
   module CLI
     module Commands
 
-      # = Start
-      #
-      # Starts the custodian server.
       class Start < Command
 
         def initialize(options)
@@ -16,6 +13,10 @@ module Custodian
             :app   => Custodian::API.new,
             :Port  => options[:port]
           )
+        end
+        
+        def self.description
+          "Start the server"
         end
 
         private

@@ -10,14 +10,19 @@ module Custodian
     def self.run!(arguments)
       command, options = arguments.shift, arguments
 
-      aliases = {
-        "-h"         => "help",
-        "--help"     => "help",
-        "-v"         => "version",
-        "--version"  => "version"
-      }
+      #aliases = {
+      #  "-h"         => "help",
+      #  "--help"     => "help",
+      #  "-v"         => "version",
+      #  "--version"  => "version"
+      #}
+      #
+      #command = aliases[command] || command
 
-      command = aliases[command] || command
+      unless command
+        usage
+        exit 1
+      end
 
       if c = Commands.find(command)
         c.invoke(options)

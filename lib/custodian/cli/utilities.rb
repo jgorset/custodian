@@ -10,6 +10,11 @@ module Custodian
         exit code
       end
 
+      # Print usage information.
+      def usage
+        puts "usage: custodian <command> [options]\n"
+      end
+
     end
   end
 end

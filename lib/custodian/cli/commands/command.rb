@@ -13,6 +13,11 @@ module Custodian
           new(options)
         end
 
+        # Returns a string describing this command.
+        def self.description
+          ""
+        end
+
         # Returns a list of strings that invoke this command.
         def self.names
           [name.split("::").last.downcase]
