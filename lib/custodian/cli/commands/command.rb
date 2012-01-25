@@ -1,16 +1,13 @@
 module Custodian
   module CLI
     module Commands
-
+      
+      # <tt>Custodian::CLI::Commands::Command</tt> is the base class
+      # for all Custodian commands.
       class Command
-        @@aliases = []
 
         def call(options)
           raise NotImplementedError
-        end
-
-        def self.aliases=(*aliases)
-          @@aliases << aliases
         end
 
       end

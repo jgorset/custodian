@@ -14,7 +14,7 @@ module Custodian
           options = parse options
 
           Rack::Server.start(
-            :app   => Custodian::Server::Application.new,
+            :app   => Custodian::API.new,
             :Port  => options[:port]
           )
         end

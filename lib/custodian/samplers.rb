@@ -9,6 +9,7 @@ module Custodian
       Who, Load
     ]
 
+    # List all samplers.
     def self.list
       @@samplers
     end

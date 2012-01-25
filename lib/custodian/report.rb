@@ -2,7 +2,7 @@ require "json"
 
 module Custodian
 
-  # Reports describe the outcome of one particular sample.
+  # <tt>Custodian::Report</tt> instances describe the outcome of a particular sample.
   class Report
 
     def initialize(sampler)
