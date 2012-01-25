@@ -5,15 +5,25 @@ Custodian is a lightweight resource monitor that is easy to use and augment.
 ## Usage
 
 Start Custodian and configure it to sample metrics every 60 seconds and expose
-them on port 5100:
+them over HTTP on port 5100:
 
-    $ custodian start 127.0.0.1:5100 --interval=60
+    $ custodian start --port=5100 --interval=60
+
+Metrics are serialized as JSON:
+
+    $ curl http://localhost:5100/
+    {
+      "who": [
+        "jgorset",
+        "drevil"
+      ]
+    }
 
 ## Augmenting Custodian
 
-Custodian convenes statistics from *samplers*, which are just simple Ruby classes:
+Custodian aggregates statistics from *samplers*, which are just simple Ruby classes:
 
-    class Who << Custodian::Sampler
+    class Who << Custodian::Samplers::Sampler
 
       # Return a list of logged in users.
       def sample
