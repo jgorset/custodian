@@ -15,7 +15,7 @@ Custodian convenes statistics from *samplers*, which are just simple Ruby classe
 
     class Who << Custodian::Sampler
 
-      # Return a list of usernames describing logged-in users.
+      # Return a list of logged in users.
       def sample
         `who`.lines.collect { |line| line.split.first }
       end

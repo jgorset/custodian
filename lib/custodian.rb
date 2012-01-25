@@ -1,5 +1,6 @@
-require "custodian/version"
-
 module Custodian
-  # Your code goes here...
+  autoload :VERSION,      "custodian/version"
+  autoload :Report,       "custodian/report"
+  autoload :Samplers,     "custodian/samplers"
+  autoload :Server,       "custodian/server"
 end

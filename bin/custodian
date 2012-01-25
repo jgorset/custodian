@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require "custodian"
+
+Custodian::Server.start(ARGV)
+
+#Rack::Server.start(
+#  :app => Custodian::Server.new,
+#  :Port => 5100
+#)
