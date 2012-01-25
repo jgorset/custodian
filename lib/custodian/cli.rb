@@ -3,7 +3,7 @@ require "custodian/cli/commands"
 
 module Custodian
   
-  # <tt>Custodian::CLI</tt> encapsulates Custodian's command-line interface.
+  # The CLI module encapsulates Custodian's command-line interface.
   module CLI
     extend Custodian::CLI::Utilities
 
