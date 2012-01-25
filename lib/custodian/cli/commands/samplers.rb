@@ -5,6 +5,8 @@ module Custodian
     module Commands
 
       class Samplers < Command
+        name "samplers"
+        describe "Show samplers"
 
         def initialize(options)
           samplers = Custodian::Samplers.list
@@ -16,10 +18,6 @@ module Custodian
             puts "   " + sampler.name.demodulize.underscore  + " " * (20 - sampler.name.demodulize.underscore.length) + sampler.description
           end
 
-        end
-
-        def self.description
-          "Show samplers"
         end
 
       end

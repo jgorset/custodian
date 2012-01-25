@@ -3,17 +3,11 @@ module Custodian
     module Commands
 
       class Version < Command
+        name "version", "--version", "-v"
+        describe "Show the version"
 
         def initialize(options)
           puts "custodian version #{Custodian::VERSION}"
-        end
-
-        def self.names
-          super + ["-v", "--version"]
-        end
-        
-        def self.description
-          "Show the version"
         end
 
       end

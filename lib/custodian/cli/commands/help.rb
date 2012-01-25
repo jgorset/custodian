@@ -3,6 +3,9 @@ module Custodian
     module Commands
 
       class Help < Command
+        name "help", "--help", "-h"
+        describe "Show this screen"
+
         include Custodian::CLI::Utilities
 
         def initialize(options)
@@ -16,14 +19,6 @@ module Custodian
 
           puts ""
           puts "See 'custodian <command> --help' for more information on a particular command."
-        end
-
-        def self.names
-          super + ["-h", "--help"]
-        end
-        
-        def self.description
-          "Show this screen"
         end
 
       end

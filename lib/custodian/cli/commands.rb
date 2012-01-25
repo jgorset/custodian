@@ -1,7 +1,7 @@
 module Custodian
   module CLI
 
-    # <tt>Custodian::CLI::Commands</tt> encapsulates commands for Custodian's
+    # The commands module encapsulates commands for Custodian's
     # command-line interface.
     module Commands
       autoload :Command,    "custodian/cli/commands/command"

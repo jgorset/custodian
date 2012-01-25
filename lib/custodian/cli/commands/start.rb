@@ -5,6 +5,8 @@ module Custodian
     module Commands
 
       class Start < Command
+        name "start"
+        describe "Start the server"
 
         def initialize(options)
           options = parse options
@@ -13,10 +15,6 @@ module Custodian
             :app   => Custodian::API.new,
             :Port  => options[:port]
           )
-        end
-        
-        def self.description
-          "Start the server"
         end
 
         private

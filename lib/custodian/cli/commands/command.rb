@@ -4,8 +4,7 @@ module Custodian
   module CLI
     module Commands
 
-      # <tt>Custodian::CLI::Commands::Command</tt> is the base class
-      # for all Custodian commands.
+      # Base class for commands.
       class Command
         include Custodian::CLI::Utilities
 
@@ -13,14 +12,28 @@ module Custodian
           new(options)
         end
 
-        # Returns a string describing this command.
-        def self.description
-          ""
-        end
+        class << self
 
-        # Returns a list of strings that invoke this command.
-        def self.names
-          [name.split("::").last.downcase]
+          # Returns a string describing this command.
+          def description
+            @description
+          end
+
+          # Returns a list of strings that invoke this command.
+          def names
+            @names
+          end
+
+          # Describes the command with the given <tt>description</tt>.
+          def describe(description)
+            @description = description
+          end
+
+          # Names the command with the given <tt>names</tt>.
+          def name(*names)
+            @names = names
+          end
+
         end
 
         private
