@@ -3,9 +3,10 @@ module Custodian
     autoload :Sampler,    "custodian/samplers/sampler"
 
     autoload :Who,        "custodian/samplers/who"
+    autoload :Load,       "custodian/samplers/load"
 
     @@samplers = [
-      Who
+      Who, Load
     ]
 
     def self.list

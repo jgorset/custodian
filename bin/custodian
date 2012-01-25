@@ -2,4 +2,4 @@
 
 require "custodian"
 
-Custodian::Server.start(ARGV)
+Custodian::CLI.run! ARGV
