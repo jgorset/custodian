@@ -29,7 +29,7 @@ popular metrics such as CPU, RAM and disk usage.
 
 Samplers are just simple Ruby classes:
 
-    class Who << Custodian::Samplers::Sampler
+    class Who < Custodian::Samplers::Sampler
       describe "Logged in users"
 
       def sample
