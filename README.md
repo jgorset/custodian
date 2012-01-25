@@ -1,6 +1,7 @@
 # Custodian
 
-Custodian is a lightweight resource monitor that is easy to use and augment.
+Custodian is a lightweight resource monitor that makes it really easy
+to sample metrics and display them anywhere.
 
 ## Usage
 
