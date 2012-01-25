@@ -45,7 +45,7 @@ module Custodian
     if RUBY_PLATFORM.downcase.include? "linux"
       Dir[File.dirname(__FILE__) + "/samplers/linux/*"].each { |file| require file }
     end
-    
+
     # Load platform-agnostic samplers.
     Dir[File.dirname(__FILE__) + "/samplers/agnostic/*"].each { |file| require file }
   end
