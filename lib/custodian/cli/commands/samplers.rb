@@ -12,10 +12,9 @@ module Custodian
           samplers = Custodian::Samplers.list
 
           puts "#{samplers.count} samplers:"
-          puts ""
 
           samplers.each do |sampler|
-            puts "   " + sampler.name.demodulize.underscore  + " " * (20 - sampler.name.demodulize.underscore.length) + sampler.description
+            puts "   " + sampler.name.demodulize.underscore  + " " * (15 - sampler.name.demodulize.underscore.length) + sampler.description
           end
 
         end
