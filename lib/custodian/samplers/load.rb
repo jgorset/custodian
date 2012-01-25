@@ -18,7 +18,7 @@ module Custodian
 
       # Return a list of strings describing logged in users.
       def sample
-        `uptime`[/load averages: (.*)/, 1]
+        `uptime`[/load averages: (.*)/, 1].split
       end
 
     end
