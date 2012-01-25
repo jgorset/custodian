@@ -11,6 +11,10 @@ module Custodian
     # the <tt>who</tt> command.
     class Who < Custodian::Samplers::Sampler
 
+      def compatible?
+        command_exists? "who"
+      end
+
       # Return a list of strings describing logged in users.
       def sample
         `who`.lines.collect { |line| line.split.first }.uniq

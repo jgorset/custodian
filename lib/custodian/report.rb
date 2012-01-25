@@ -10,12 +10,12 @@ module Custodian
     # Return the human-readable name of the sampler this
     # report was generated from.
     def name
-      @sampler.name.split("::").last.downcase
+      @sampler.class.name.split("::").last.downcase
     end
 
     # Return the value of this report.
     def value
-      @sampler.new.sample
+      @sampler.sample
     end
 
   end

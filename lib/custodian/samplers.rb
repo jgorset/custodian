@@ -28,11 +28,13 @@ module Custodian
       register b
     end
 
-    # Make a sample.
+    # Return a list of compatible samplers.
     def self.sample
       @@samplers.collect do |sampler|
-        Custodian::Report.new(sampler)
-      end
+        sampler = sampler.new
+
+        Custodian::Report.new(sampler) if sampler.compatible?
+      end.compact
     end
   end
 end
