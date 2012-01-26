@@ -7,9 +7,10 @@ to sample metrics and display them anywhere.
 
 ### Server
 
-Start Custodian, exposing metrics over HTTP on port 5100:
+Start Custodian and configure it to sample metrics every 60 seconds and expose them
+on port 5100:
 
-    $ custodian --port=5100
+    $ custodian --interval=60 --port=5100
 
 #### Samplers
 
@@ -29,7 +30,7 @@ end
 
 You can load additional samplers with the `--samplers` option.
 
-    $ custodian --port=5100 --interval=60 --samplers=~/.samplers
+    $ custodian --samplers=~/.samplers
 
 ### Clients
 
