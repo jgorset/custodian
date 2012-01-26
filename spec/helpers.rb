@@ -1,5 +1,5 @@
 class Truth < Custodian::Samplers::Sampler
-  caption = "The truth"
+  describe "The truth"
 
   def sample
     true
@@ -8,7 +8,7 @@ class Truth < Custodian::Samplers::Sampler
 end
 
 class Falsehood < Custodian::Samplers::Sampler
-  caption = "Not the truth"
+  describe "Not the truth"
 
   def sample
     false
