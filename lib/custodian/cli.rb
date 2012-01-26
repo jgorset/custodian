@@ -40,9 +40,7 @@ module Custodian
         end
 
         o.on "-s", "--samplers DIR", "Load samplers from DIR" do |directories|
-          directories.split(":").each do |directory|
-            Custodian::Samplers.load directory
-          end
+          directories.split(":").each { |directory| Custodian::Samplers.load directory }
         end
       end.parse! arguments
 
