@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 require "thin"
 require "optparse"
 
@@ -11,8 +9,8 @@ module Custodian
     def initialize(arguments)
       options = parse arguments
 
-      puts "• Custodian is accepting connections on port #{options[:port]}"
-      puts "• CTRL+C to stop"
+      puts ">> Custodian is accepting connections on port #{options[:port]}"
+      puts ">> CTRL+C to stop"
 
       Thin::Logging.silent = true
       Thin::Server.start '0.0.0.0', options[:port], Custodian::API.new
