@@ -4,38 +4,54 @@ module Custodian
 
     @samplers = []
 
-    # List all samplers.
+    # Lists all samplers.
     def self.list
       @samplers
     end
 
-    # Register the given sampler.
+    # Registers the given sampler.
     def self.register(sampler)
       @samplers << sampler
     end
 
-    # Remove the given sampler.
+    # Removes the given sampler.
     def self.remove(sampler)
       @samplers.delete(sampler)
     end
 
-    # Replace one sampler with another.
+    # Replaces one sampler with another.
     def self.replace(a, b)
       remove a
       register b
     end
 
+    # Loads samplers from the given directory.
+    def self.load(directory)
+      path = Pathname.new directory
+
+      # Allow referencing directories by relative and home path.
+      path = path.expand_path unless path.absolute?
+
+      unless path.directory?
+        raise StandardError, "#{directory} is not a directory"
+      end
+
+      path.each_child do |child|
+        require child if child.file?
+      end
+    end
+
     # Load samplers for darwin.
-    if RUBY_PLATFORM.downcase.include? "darwin"
-      Dir[File.dirname(__FILE__) + "/samplers/darwin/*"].each { |file| require file }
+    if OS.darwin?
+      load File.dirname(__FILE__) + "/samplers/darwin"
     end
 
     # Load samplers for linux.
-    if RUBY_PLATFORM.downcase.include? "linux"
-      Dir[File.dirname(__FILE__) + "/samplers/linux/*"].each { |file| require file }
+    if OS.linux?
+      load File.dirname(__FILE__) + "/samplers/linux"
     end
 
     # Load platform-agnostic samplers.
-    Dir[File.dirname(__FILE__) + "/samplers/agnostic/*"].each { |file| require file }
+    load File.dirname(__FILE__) + "/samplers/agnostic"
   end
 end
