@@ -35,7 +35,7 @@ module Custodian
         o.banner = "Usage: custodian [options]"
         o.version = Custodian::VERSION
 
-        o.on "-p", "--port PORT", "Listen on PORT" do |port|
+        o.on "-p", "--port PORT", "Listen on PORT (default #{options[:port]})" do |port|
           options[:port] = port
         end
 
