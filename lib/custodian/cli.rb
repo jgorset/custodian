@@ -17,7 +17,7 @@ module Custodian
           puts ">>    - #{sampler.description}"
         end
       end
-      
+
       if incompatible_samplers = Custodian::Samplers.incompatible
         puts ">> #{incompatible_samplers.count} incompatible samplers:"
         incompatible_samplers.each do |sampler|
