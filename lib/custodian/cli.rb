@@ -39,10 +39,6 @@ module Custodian
           options[:port] = port
         end
 
-        o.on "-i", "--interval TIME", "Sample every TIME seconds" do |interval|
-          options[:interval] = interval
-        end
-
         o.on "-s", "--samplers DIR", "Load samplers from DIR" do |directories|
           directories.split(":").each do |directory|
             Custodian::Samplers.load directory
