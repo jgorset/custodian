@@ -44,12 +44,15 @@ end
 
 #### Configuration
 
-Custodian may be configured from `~/.custodian`.
+You may configure Custodian from a `.custodian` file in your home directory. This, too,
+is just a Ruby file.
 
 ```ruby
+# Load custom samplers
 require "~/.samplers/registered_users"
 require "~/.samplers/active_users"
 
+# Configure samplers
 samplers do
     defaults
 
