@@ -11,14 +11,16 @@ module Custodian
 
       puts ">> Custodian is accepting connections on port #{options[:port]}"
 
-      if compatible_samplers = Custodian::Samplers.compatible
+      compatible_samplers = Custodian::Samplers.compatible
+      unless compatible_samplers.empty?
         puts ">> #{compatible_samplers.count} compatible samplers:"
         compatible_samplers.each do |sampler|
           puts ">>    - #{sampler.description}"
         end
       end
 
-      if incompatible_samplers = Custodian::Samplers.incompatible
+      incompatible_samplers = Custodian::Samplers.incompatible
+      unless incompatible_samplers.empty?
         puts ">> #{incompatible_samplers.count} incompatible samplers:"
         incompatible_samplers.each do |sampler|
           puts ">>    - #{sampler.description}"
