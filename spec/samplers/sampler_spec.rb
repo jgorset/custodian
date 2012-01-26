@@ -1,5 +1,4 @@
 require "custodian"
-require "samplers/helpers"
 
 describe Custodian::Samplers::Sampler do
 
