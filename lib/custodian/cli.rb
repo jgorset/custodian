@@ -1,4 +1,6 @@
-require "rack"
+# encoding: utf-8
+
+require "thin"
 require "optparse"
 
 module Custodian
@@ -9,10 +11,11 @@ module Custodian
     def initialize(arguments)
       options = parse arguments
 
-      Rack::Server.start(
-        :app   => Custodian::API.new,
-        :Port  => options[:port]
-      )
+      puts "• Custodian is accepting connections on port #{options[:port]}"
+      puts "• CTRL+C to stop"
+
+      Thin::Logging.silent = true
+      Thin::Server.start '0.0.0.0', options[:port], Custodian::API.new
     end
 
     def self.run!(arguments)
