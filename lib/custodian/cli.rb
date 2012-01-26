@@ -13,7 +13,7 @@ module Custodian
       puts ">> CTRL+C to stop"
 
       Thin::Logging.silent = true
-      Thin::Server.start '0.0.0.0', options[:port], Custodian::API.new
+      Thin::Server.start "0.0.0.0", options[:port], Custodian::API.new
     end
 
     def self.run!(arguments)
