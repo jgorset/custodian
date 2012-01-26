@@ -12,6 +12,8 @@ on port 5100:
 
     $ custodian --interval=60 --port=5100
 
+![Example](https://github.com/jgorset/custodian/raw/master/docs/images/example.png)
+
 #### Samplers
 
 Custodian aggregates metrics from *samplers*, and ships with samplers for popular figures
