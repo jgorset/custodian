@@ -14,8 +14,8 @@ module Custodian
       }
 
       body = Custodian::Samplers.list.collect do |sampler|
-        { description: sampler.description, sample: sampler.sample }
-      end.to_json
+        { description: sampler.description, sample: sampler.sample } if sampler.compatible?
+      end.compact.to_json
 
       [status, headers, [body]]
     end

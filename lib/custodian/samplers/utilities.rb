@@ -1,9 +1,23 @@
 module Custodian
   module Samplers
 
-    # Base class for samplers.
-    class Sampler
-      include Custodian::Samplers::Utilities
+    # Utility methods for samplers.
+    module Utilities
+
+      # Determines whether the given program exists.
+      def self.program_exists?(program)
+        system "which #{command} > /dev/null 2>&1"
+      end
+
+      # Determines whether the given directory exists.
+      def self.directory_exists?(directory)
+        Pathname.new(directory).directory?
+      end
+
+      # Determines whether the given file exists.
+      def self.file_exists?(file)
+        Pathname.new(file).file?
+      end
 
       # Determines whether the sampler is compatible with this system.
       def compatible?
@@ -12,12 +26,10 @@ module Custodian
 
       class << self
 
-        # Describes the sampler.
         def describe(description)
           @description = description
         end
 
-        # Returns the sampler's description.
         def description
           @description
         end
@@ -26,14 +38,6 @@ module Custodian
           new.sample
         end
 
-        def compatible?
-          new.compatible?
-        end
-
-      end
-
-      def description
-        self.class.description
       end
 
       private

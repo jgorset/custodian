@@ -1,12 +1,23 @@
 module Custodian
   module Samplers    
     autoload :Sampler,    "custodian/samplers/sampler"
+    autoload :Utilities,  "custodian/samplers/utilities"
 
     @samplers = []
 
     # Lists all samplers.
     def self.list
       @samplers
+    end
+
+    # Lists compatible samplers.
+    def self.compatible
+      @samplers.select { |s| s.compatible? }
+    end
+
+    # Lists incompatible samplers.
+    def self.incompatible
+      @samplers.reject { |s| s.compatible? }
     end
 
     # Registers the given sampler.
