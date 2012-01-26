@@ -7,42 +7,59 @@ to sample metrics and display them anywhere.
 
 ### Server
 
-Start Custodian and configure it to sample metrics every 60 seconds and expose
-them over HTTP on port 5100:
+Start Custodian and configure it to sample metrics every 60 seconds
+and expose them over HTTP on port 5100:
 
     $ custodian start --port=5100 --interval=60
 
 #### Samplers
 
-Custodian ships with samplers for popular metrics such as CPU, RAM and disk usage:
+Custodian aggregates metrics from *samplers*, and ships with samplers
+for popular figures:
 
     $ custodian samplers
     15 samplers:
-    
-      cpu       Samples CPU usage
-      ram       Samples RAM usage
-      disk      Samples disk usage
-      load      Samples load average
-      who       Samples logged in users
+
+      cpu       CPU usage
+      ram       RAM usage
+      disk      Disk usage
+      load      Load average
+      who       Logged in users
       ...
 
-##### Making your own samplers
+##### Rolling your own
 
-Samplers are just Ruby classes!
+CPU, RAM and disk usage is interesting and all, but custom samplers are all the rage.
+Samplers are just Ruby classes, so it's really easy to roll your own:
 
 ```ruby
-class Hits < Custodian::Samplers::Sampler
-  describe "Samples hits to NGINX"
+class RegisteredUsers < Custodian::Samplers::Sampler
+  describe "Registered users"
 
   def sample
-    open("/var/log/nginx/access.log") { |file| file.lines.count }
+    Users.count
   end
+end
+```
 
+#### Configuration
+
+Custodian may be configured from `~/.custodian`.
+
+```ruby
+require "~/.samplers/registered_users"
+require "~/.samplers/active_users"
+
+samplers do
+    defaults
+
+    register RegisteredUsers
+    register ActiveUsers
 end
 ```
 
 ### Clients
 
 Unless you're crazy about JSON, you'll want to consume Custodian's API
-with a *client*. Unfortunately, there are no clients for Custodian yet.
-You should make one!
+with a *client*. Unfortunately, there are no clients for Custodian yet —
+you should make one!
