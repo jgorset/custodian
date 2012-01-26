@@ -7,30 +7,16 @@ to sample metrics and display them anywhere.
 
 ### Server
 
-Start Custodian and configure it to sample metrics every 60 seconds
-and expose them over HTTP on port 5100:
+Start Custodian and configure it to sample metrics every 60 seconds and expose
+them over HTTP on port 5100:
 
-    $ custodian start --port=5100 --interval=60
+    $ custodian --port=5100 --interval=60
 
 #### Samplers
 
-Custodian aggregates metrics from *samplers*, and ships with samplers
-for popular figures:
-
-    $ custodian samplers
-    15 samplers:
-
-      cpu       CPU usage
-      ram       RAM usage
-      disk      Disk usage
-      load      Load average
-      who       Logged in users
-      ...
-
-##### Rolling your own
-
-CPU, RAM and disk usage is interesting and all, but custom samplers are all the rage.
-Samplers are just Ruby classes, so it's really easy to roll your own:
+Custodian aggregates metrics from *samplers*, and ships with samplers for popular figures
+such as logged in users and load averages. That's interesting and all, but custom
+samplers are all the rage.
 
 ```ruby
 class RegisteredUsers < Custodian::Samplers::Sampler
@@ -42,27 +28,11 @@ class RegisteredUsers < Custodian::Samplers::Sampler
 end
 ```
 
-#### Configuration
+You can load additional samplers with the `--samplers` option.
 
-You may configure Custodian from a `.custodian` file in your home directory. This, too,
-is just a Ruby file.
-
-```ruby
-# Load custom samplers
-require "~/.samplers/registered_users"
-require "~/.samplers/active_users"
-
-# Configure samplers
-samplers do
-    defaults
-
-    register RegisteredUsers
-    register ActiveUsers
-end
-```
+    $ custodian --port=5100 --interval=60 --samplers=~/.samplers
 
 ### Clients
 
-Unless you're crazy about JSON, you'll want to consume Custodian's API
-with a *client*. Unfortunately, there are no clients for Custodian yet —
-you should make one!
+Unless you're crazy about JSON, you'll want to consume Custodian's API with a
+*client*. Unfortunately, there are no clients for Custodian yet — you should make one!

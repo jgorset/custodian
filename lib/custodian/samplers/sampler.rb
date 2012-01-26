@@ -4,22 +4,20 @@ module Custodian
     # Base class for samplers.
     class Sampler
 
-      def sample
-        raise NotImplementedError
-      end
+      class << self
 
-      def sample!
-        sample
-      rescue Exception => e
-        raise Error, e.message
-      end
+        def describe(description)
+          @description = description
+        end
 
-      def self.describe(description)
-        @description = description
-      end
+        def description
+          @description
+        end
 
-      def self.description
-        @description
+        def sample
+          new.sample
+        end
+
       end
 
       private
@@ -28,8 +26,6 @@ module Custodian
       def self.inherited(sampler)
         Custodian::Samplers.register(sampler)
       end
-
-      class Error < StandardError; end
     end
 
   end

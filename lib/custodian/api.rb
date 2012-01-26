@@ -2,8 +2,8 @@ require "json"
 
 module Custodian
 
-  # <tt>Custodian::API</tt> is a Rack-compatible application
-  # that serializes reports as JSON.
+  # The API class encapsulates a rack-compatible application that
+  # renders the JSON representation of each sample.
   class API
 
     def call(env)
@@ -13,26 +13,11 @@ module Custodian
         "Content-Type" => "application/json"
       }
 
-      body = serialize reports
+      body = Custodian::Samplers.list.collect do |sampler|
+        { description: sampler.description, sample: sampler.sample }
+      end.to_json
 
       [status, headers, [body]]
-    end
-
-    private
-
-    def reports
-      Custodian::Samplers.sample
-    end
-
-    # Serialize the given <tt>reports</tt> as JSON.
-    def serialize(reports)
-      hash = {}
-
-      reports.each do |report|
-        hash.merge! report.to_hash
-      end
-
-      hash.to_json
     end
 
   end

@@ -27,10 +27,4 @@ describe Custodian::Samplers do
     Custodian::Samplers.list.should include Falsehood
   end
 
-  it "can sample" do
-    Custodian::Samplers.sample.each do |report|
-      report.should be_an_instance_of Custodian::Report
-    end
-  end
-
 end
