@@ -30,7 +30,7 @@ class RegisteredUsers < Custodian::Samplers::Sampler
 end
 ```
 
-You can load additional samplers with the `--samplers` option.
+You can load your own samplers with the `--samplers` option.
 
     $ custodian --samplers=~/.samplers
 
