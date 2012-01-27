@@ -12,24 +12,24 @@ module Custodian
 
       puts ">> Custodian is accepting connections on port #{options[:port]}"
 
-      compatible_samplers = Custodian::Samplers.compatible
+      compatible_samplers   = Custodian::Samplers.compatible
+      incompatible_samplers = Custodian::Samplers.incompatible
+
+      # List compatible samplers
       unless compatible_samplers.empty?
         puts ">> #{compatible_samplers.count} compatible samplers:"
-        compatible_samplers.each do |sampler|
-          puts ">>    - #{sampler.description}"
-        end
+        compatible_samplers.each { |s| puts ">>    - #{s.description}" }
       end
 
-      incompatible_samplers = Custodian::Samplers.incompatible
+      # List incompatible samplers
       unless incompatible_samplers.empty?
         puts ">> #{incompatible_samplers.count} incompatible samplers:"
-        incompatible_samplers.each do |sampler|
-          puts ">>    - #{sampler.description}"
-        end
+        incompatible_samplers.each { |s| puts ">>    - #{s.description}" }
       end
 
       puts ">> CTRL+C to stop"
 
+      # You talk too much, Thin.
       Thin::Logging.silent = true
 
       Thin::Server.start '0.0.0.0', options[:port] do
@@ -38,10 +38,6 @@ module Custodian
 
         run Custodian::API.new
       end
-    end
-
-    def self.run!(arguments)
-      new arguments
     end
 
     private
