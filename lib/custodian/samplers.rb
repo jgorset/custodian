@@ -63,8 +63,5 @@ module Custodian
     if OS.linux?
       load File.dirname(__FILE__) + "/samplers/linux"
     end
-
-    # Load platform-agnostic samplers.
-    load File.dirname(__FILE__) + "/samplers/agnostic"
   end
 end
