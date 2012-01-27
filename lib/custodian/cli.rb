@@ -1,4 +1,5 @@
 require "thin"
+require "rack"
 require "optparse"
 
 module Custodian
@@ -30,7 +31,13 @@ module Custodian
       puts ">> CTRL+C to stop"
 
       Thin::Logging.silent = true
-      Thin::Server.start "0.0.0.0", options[:port], Custodian::API.new
+
+      Thin::Server.start '0.0.0.0', options[:port] do
+        use Rack::CommonLogger
+        use Rack::ShowExceptions
+
+        run Custodian::API.new
+      end
     end
 
     def self.run!(arguments)
