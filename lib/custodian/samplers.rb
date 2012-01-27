@@ -1,3 +1,5 @@
+require "pathname"
+
 module Custodian
   module Samplers    
     autoload :Sampler,    "custodian/samplers/sampler"
