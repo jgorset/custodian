@@ -5,7 +5,7 @@ module Custodian
       describe "RAM usage"
 
       def sample
-        free = `free`.match /Mem: +([0-9]+) +([0-9]+) +([0-9]+) +([0-9]+) +([0-9]+) +([0-9]+)/
+        free = `free -m`.match /Mem: +([0-9]+) +([0-9]+) +([0-9]+) +([0-9]+) +([0-9]+) +([0-9]+)/
 
         {
           "Total"   => "#{free[1]} MB",
