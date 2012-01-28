@@ -63,7 +63,7 @@ module Custodian
       end.parse! arguments
 
       options
-    rescue OptionParser::InvalidArgument => e
+    rescue OptionParser::InvalidOption => e
       error e
     end
 
