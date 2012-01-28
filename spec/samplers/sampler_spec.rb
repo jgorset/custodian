@@ -3,7 +3,7 @@ require "custodian"
 describe Custodian::Samplers::Sampler do
 
   before do
-    @sampler = Custodian::Samplers::Sampler.new
+    @sampler = Custodian::Samplers::Sampler
   end
 
   it "can be described" do

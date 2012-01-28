@@ -1,44 +1,74 @@
 require "pathname"
 
 module Custodian
+  
+  # The Samplers module encapsulates a collection of samplers
+  # for various metrics.
   module Samplers    
     autoload :Sampler,    "custodian/samplers/sampler"
     autoload :Utilities,  "custodian/samplers/utilities"
 
     @samplers = []
 
-    # Lists all samplers.
+    # List all samplers.
+    #
+    # Returns an Array of Sampler objects.
     def self.list
       @samplers
     end
 
-    # Lists compatible samplers.
+    # List compatible samplers.
+    #
+    # Returns an Array of Sampler objects that are compatible
+    # with this system.
     def self.compatible
       @samplers.select { |s| s.compatible? }
     end
 
-    # Lists incompatible samplers.
+    # List incompatible samplers.
+    #
+    # Returns an Array of Sampler objects that are incompatible
+    # with this system.
     def self.incompatible
       @samplers.reject { |s| s.compatible? }
     end
 
-    # Registers the given sampler.
+    # Register the given sampler.
+    #
+    # sampler - An object that inherits from Sampler.
+    #
+    # Returns nothing.
     def self.register(sampler)
       @samplers << sampler
     end
 
-    # Removes the given sampler.
+    # Remove the given sampler.
+    #
+    # sampler - An object that inherits from Sampler.
     def self.remove(sampler)
       @samplers.delete(sampler)
     end
 
-    # Replaces one sampler with another.
+    # Replace one sampler with another.
+    #
+    # a - An object that inherits from Sampler.
+    # b - Another object that inherits from Sampler.
+    #
+    # Returns nothing.
     def self.replace(a, b)
       remove a
       register b
     end
 
-    # Loads samplers from the given directory.
+    # Load samplers from the given directory.
+    #
+    # directory - A String describing a path to a directory. If the path is relative,
+    #             it will be expanded from the current working directory. If the path
+    #             is prefixed with a tilde, it will be expanded from the current user's
+    #             home directory. If the path is prefixed with a tilde immediately followed
+    #             by a username, it will be expanded from that user's home directory.
+    #
+    # Returns nothing.
     def self.load(directory)
       path = Pathname.new directory
 

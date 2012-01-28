@@ -5,14 +5,32 @@ module Custodian
     class Sampler
       include Custodian::Samplers::Utilities
 
-      # Determines whether the sampler is compatible with this system.
+      # Make a sample from this sampler.
+      #
+      # Examples
+      #
+      #   CPU.sample # => { "User" => "10%", "System" => "5%", "Idle" => "85%" }
+      #
+      # Returns an Integer, Symbol, String, Hash or Array (or any combination thereof)
+      # describing the outcome of the sample.
+      def sample
+        nil
+      end
+
+      # Determine whether the sampler is compatible with this system.
+      #
+      # Returns true if it is compatible, or false if it isn't.
       def compatible?
         true
       end
 
       class << self
 
-        # Describes the sampler.
+        # Describe the sampler.
+        #
+        # description - A String describing the sampler.
+        #
+        # Returns nothing.
         def describe(description)
           @description = description
         end
@@ -22,23 +40,25 @@ module Custodian
           @description
         end
 
+        # Proxy for Sampler#sample.
         def sample
           new.sample
         end
 
+        # Proxy for Sampler#compatible?
         def compatible?
           new.compatible?
         end
 
       end
 
-      def description
-        self.class.description
-      end
-
       private
 
       # Register samplers for classes that inherit from this class.
+      #
+      # sampler - The Class that inherited this class.
+      #
+      # Returns nothing.
       def self.inherited(sampler)
         Custodian::Samplers.register(sampler)
       end
