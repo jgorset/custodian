@@ -7,10 +7,9 @@ and really awesome to sample metrics.
 
 ### Server
 
-Start Custodian and configure it to sample metrics every 60 seconds and expose them
-on port 5100:
+Start Custodian and configure it to expose its metrics on port 5100:
 
-    $ custodian --interval=60 --port=5100
+    $ custodian --port=5100
 
 ![Example](https://github.com/jgorset/custodian/raw/master/docs/images/example.png)
 
