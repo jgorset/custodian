@@ -6,6 +6,8 @@ module Custodian
 
   # The CLI class encapsulates Custodian's command-line interface.
   class CLI
+    DEFAULT_PORT     = 5100
+    DEFAULT_INTERVAL = 60
 
     # Create a new command-line interface.
     #
@@ -14,9 +16,16 @@ module Custodian
     def initialize(arguments)
       options = parse arguments
 
-      # Load custom samplers
-      if options.include? :samplers
-        options[:samplers].each { |directory| Custodian::Samplers.load directory }
+      if samplers = options[:samplers]
+        load_samplers samplers
+      end
+
+      if options.include? :daemonize
+        deamonize
+      end
+
+      if pidfile = options[:pidfile]
+        write_pidfile pidfile
       end
 
       puts ">> Custodian is accepting connections on port #{options[:port]}"
@@ -24,21 +33,14 @@ module Custodian
       compatible_samplers   = Custodian::Samplers.compatible
       incompatible_samplers = Custodian::Samplers.incompatible
 
-      # List compatible samplers
-      unless compatible_samplers.empty?
-        puts ">> #{compatible_samplers.count} compatible samplers:"
-        compatible_samplers.each { |s| puts ">>    - #{s.description}" }
-      end
+      puts ">> #{compatible_samplers.count} compatible samplers."
+      compatible_samplers.each { |s| puts ">>    - #{s.description}" }
 
-      # List incompatible samplers
-      unless incompatible_samplers.empty?
-        puts ">> #{incompatible_samplers.count} incompatible samplers:"
-        incompatible_samplers.each { |s| puts ">>    - #{s.description}" }
-      end
+      puts ">> #{incompatible_samplers.count} incompatible samplers."
+      incompatible_samplers.each { |s| puts ">>    - #{s.description}" }
 
       puts ">> CTRL+C to stop"
 
-      # You talk too much, Thin.
       Thin::Logging.silent = true
 
       Thin::Server.start '0.0.0.0', options[:port] do
@@ -50,6 +52,35 @@ module Custodian
     end
 
     private
+    
+    # Load samplers from the given directories.
+    #
+    # directories - An Array of Strings describing paths to directories
+    #               that contain samplers.
+    #
+    # Returns nothing.
+    def load_samplers(directories)
+      directories.each do |directory|
+        Custodian::Samplers.load directory
+      end
+    end
+
+    # Write the process id to the given file.
+    #
+    # file - A String describing an path to a file. If the file does not exist, it
+    #        will be created. If the file already exists, it will be overwritten.
+    #
+    # Returns nothing.
+    def write_pidfile(file)
+      File.open file, "w" do |file|
+        file << Process.id
+      end
+    end
+
+    # Daemonize the process.
+    def deamonize
+      Process.daemon
+    end
 
     # Parse the given arguments or exit with an error if they are malformed and/or invalid.
     #
@@ -62,15 +93,13 @@ module Custodian
     #   :port     - An Integer describing the port to listen on.
     #   :samplers - An Array of String objects describing paths to load samplers from.
     def parse(arguments)
-
-      # Default options
       options = {
-        port: 5100,
-        interval: 60
+        port:     DEFAULT_PORT,
+        interval: DEFAULT_INTERVAL
       }
 
       OptionParser.new do |o|
-        o.banner = "Usage: custodian [options]"
+        o.banner  = "Usage: custodian [options]"
         o.version = Custodian::VERSION
 
         o.on "-p", "--port PORT", "Listen on PORT (default #{options[:port]})" do |port|
@@ -78,7 +107,15 @@ module Custodian
         end
 
         o.on "-s", "--samplers DIR", "Load samplers from DIR" do |samplers|
-          options [:samplers] = samplers.split(":")
+          options[:samplers] = samplers.split(":")
+        end
+
+        o.on "--daemonize", "Daemonize the server" do
+          options[:daemonize] = true
+        end
+
+        o.on "--pidfile FILE", "Write the PID to FILE" do |pidfile|
+          options[:pidfile] = pidfile
         end
       end.parse! arguments
 
@@ -90,8 +127,8 @@ module Custodian
     # Print a message and exit with the given code.
     #
     # message - A String describing the message to print.
-    # code    - An Integer describing the exit code.
-    def error(message, code=1)
+    # code    - An Integer describing the exit code (defaults to 1).
+    def error(message, code = 1)
       puts "custodian: #{message}"
       exit code
     end
