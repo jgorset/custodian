@@ -7,7 +7,6 @@ module Custodian
   # The CLI class encapsulates Custodian's command-line interface.
   class CLI
     DEFAULT_PORT     = 5100
-    DEFAULT_INTERVAL = 60
 
     # Create a new command-line interface.
     #
@@ -101,7 +100,6 @@ module Custodian
     def parse(arguments)
       options = {
         port:     DEFAULT_PORT,
-        interval: DEFAULT_INTERVAL
       }
 
       OptionParser.new do |o|
