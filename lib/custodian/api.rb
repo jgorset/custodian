@@ -7,7 +7,7 @@ module Custodian
   # 
   # * http://rack.rubyforge.org/doc/files/SPEC.html.
   class API
-    
+
     # Render the JSON representation of each sample.
     #
     # env - A Hash of CGI-like headers describing the

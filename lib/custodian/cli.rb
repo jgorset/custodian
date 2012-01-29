@@ -6,7 +6,7 @@ module Custodian
 
   # The CLI class encapsulates Custodian's command-line interface.
   class CLI
-    DEFAULT_PORT     = 5100
+    DEFAULT_PORT = 5100
 
     # Create a new command-line interface.
     #
