@@ -91,6 +91,9 @@ module Custodian
     #             "-p", "--port"     - An integer describing the port to listen on.
     #             "-s", "--samplers" - A colon-separated list of directories from
     #                                  which to load samplers.
+    #             "--daemonize"      - If set, the process will be daemonized.
+    #             "--pidfile"        - A string describing a file to which the PID
+    #                                  will be written.
     #
     # Returns a Hash of options derived from the given arguments:
     #   :port      - An Integer describing the port to listen on.
