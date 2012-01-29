@@ -28,18 +28,22 @@ module Custodian
         write_pidfile pidfile
       end
 
-      puts ">> Custodian is accepting connections on port #{options[:port]}"
+      log "Custodian is accepting connections on port #{options[:port]}"
 
       compatible_samplers   = Custodian::Samplers.compatible
       incompatible_samplers = Custodian::Samplers.incompatible
 
-      puts ">> #{compatible_samplers.count} compatible samplers."
-      compatible_samplers.each { |s| puts ">>    - #{s.description}" }
+      log "#{compatible_samplers.count} compatible samplers."
+      compatible_samplers.each do |s|
+        log "   - #{s.description}"
+      end
 
-      puts ">> #{incompatible_samplers.count} incompatible samplers."
-      incompatible_samplers.each { |s| puts ">>    - #{s.description}" }
+      log "#{incompatible_samplers.count} incompatible samplers."
+      incompatible_samplers.each do |s|
+        log "   - #{s.description}"
+      end
 
-      puts ">> CTRL+C to stop"
+      log "CTRL+C to stop"
 
       Thin::Logging.silent = true
 
@@ -122,6 +126,13 @@ module Custodian
       options
     rescue OptionParser::InvalidOption => e
       error e
+    end
+
+    # Log a message to STDOUT.
+    #
+    # message - A String describing a message.
+    def log(message)
+      puts ">> #{message}"
     end
 
     # Print a message and exit with the given code.
