@@ -71,7 +71,7 @@ module Custodian
 
     # Write the process id to the given file.
     #
-    # file - A String describing an path to a file. If the file does not exist, it
+    # file - A String describing a path to a file. If the file does not exist, it
     #        will be created. If the file already exists, it will be overwritten.
     #
     # Returns nothing.
@@ -94,8 +94,10 @@ module Custodian
     #                                  which to load samplers.
     #
     # Returns a Hash of options derived from the given arguments:
-    #   :port     - An Integer describing the port to listen on.
-    #   :samplers - An Array of String objects describing paths to load samplers from.
+    #   :port      - An Integer describing the port to listen on.
+    #   :samplers  - An Array of String objects describing paths to load samplers from.
+    #   :daemonize - A Boolean describing whether or not to daemonize the process.
+    #   :pidfile   - A String describing a path to a file.
     def parse(arguments)
       options = {
         port:     DEFAULT_PORT,
