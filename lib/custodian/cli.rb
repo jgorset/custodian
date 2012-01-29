@@ -56,7 +56,7 @@ module Custodian
     end
 
     private
-    
+
     # Load samplers from the given directories.
     #
     # directories - An Array of Strings describing paths to directories
