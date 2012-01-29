@@ -116,11 +116,11 @@ module Custodian
           options[:samplers] = samplers.split(":")
         end
 
-        o.on "--daemonize", "Daemonize the server" do
+        o.on "--daemonize", "Daemonize the process" do
           options[:daemonize] = true
         end
 
-        o.on "--pidfile FILE", "Write the PID to FILE" do |pidfile|
+        o.on "--pidfile FILE", "Write the process id to FILE" do |pidfile|
           options[:pidfile] = pidfile
         end
       end.parse! arguments
