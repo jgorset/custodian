@@ -1,7 +1,7 @@
 require "pathname"
 
 module Custodian
-  
+
   # The Samplers module encapsulates a collection of samplers
   # for various metrics.
   module Samplers    
@@ -60,6 +60,17 @@ module Custodian
       register b
     end
 
+    # Clear all samplers.
+    def self.clear
+      @samplers = []
+    end
+
+    # Restore stock samplers.
+    def self.stock
+      load File.dirname(__FILE__) + "/samplers/darwin" if OS.darwin?
+      load File.dirname(__FILE__) + "/samplers/linux" if OS.linux?
+    end
+
     # Load samplers from the given directory.
     #
     # directory - A String describing a path to a directory. If the path is relative,
@@ -84,14 +95,6 @@ module Custodian
       end
     end
 
-    # Load samplers for darwin.
-    if OS.darwin?
-      load File.dirname(__FILE__) + "/samplers/darwin"
-    end
-
-    # Load samplers for linux.
-    if OS.linux?
-      load File.dirname(__FILE__) + "/samplers/linux"
-    end
+    stock
   end
 end
