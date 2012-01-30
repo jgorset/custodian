@@ -124,7 +124,7 @@ module Custodian
           options[:pidfile] = pidfile
         end
 
-        o.on "--authenticate USERNAME:PASSWORD", "Require HTTP Basic authentication with the given USERNAME and PASSWORD" do |credentials|
+        o.on "--authenticate USERNAME:PASSWORD", "Authenticate clients with the given USERNAME and PASSWORD" do |credentials|
           options[:username], options[:password] = credentials.split(":")
         end
       end.parse! arguments
