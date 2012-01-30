@@ -1,5 +1,6 @@
 require "thin"
 require "rack"
+require "rack/auth/basic"
 require "optparse"
 
 module Custodian
@@ -45,10 +46,12 @@ module Custodian
       log "CTRL+C to stop"
 
       Thin::Logging.silent = true
-
       Thin::Server.start '0.0.0.0', options[:port] do
         use Rack::CommonLogger
         use Rack::ShowExceptions
+        use Rack::Auth::Basic do |username, password|
+          [username, password] == [options[:username], options[:password]]
+        end if options.include? :username && options.include? :password
 
         run Custodian::API.new
       end
@@ -87,22 +90,18 @@ module Custodian
 
     # Parse the given arguments or exit with an error if they are malformed and/or invalid.
     #
-    # arguments - An Array of String objects describing arguments passed to the program:
-    #             "-p", "--port"     - An integer describing the port to listen on.
-    #             "-s", "--samplers" - A colon-separated list of directories from
-    #                                  which to load samplers.
-    #             "--daemonize"      - If set, the process will be daemonized.
-    #             "--pidfile"        - A string describing a file to which the PID
-    #                                  will be written.
+    # arguments - An Array of String objects describing arguments passed to the program.
     #
     # Returns a Hash of options derived from the given arguments:
     #   :port      - An Integer describing the port to listen on.
     #   :samplers  - An Array of String objects describing paths to load samplers from.
     #   :daemonize - A Boolean describing whether or not to daemonize the process.
     #   :pidfile   - A String describing a path to a file.
+    #   :username  - A String describing a username required by HTTP Basic authentication.
+    #   :password  - A String describing a password required by HTTP Basic authentication.
     def parse(arguments)
       options = {
-        port:     DEFAULT_PORT,
+        port: DEFAULT_PORT
       }
 
       OptionParser.new do |o|
@@ -123,6 +122,10 @@ module Custodian
 
         o.on "--pidfile FILE", "Write the process id to FILE" do |pidfile|
           options[:pidfile] = pidfile
+        end
+
+        o.on "--authenticate USERNAME:PASSWORD", "Require HTTP Basic authentication with the given USERNAME and PASSWORD" do |username|
+          options[:username], options[:password] = username.split(":")
         end
       end.parse! arguments
 
