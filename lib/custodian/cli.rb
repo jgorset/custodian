@@ -51,7 +51,7 @@ module Custodian
         use Rack::ShowExceptions
         use Rack::Auth::Basic do |username, password|
           [username, password] == [options[:username], options[:password]]
-        end if options.include? :username && options.include? :password
+        end if options.include? :username
 
         run Custodian::API.new
       end
