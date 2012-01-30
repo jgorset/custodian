@@ -108,11 +108,11 @@ module Custodian
         o.banner  = "Usage: custodian [options]"
         o.version = Custodian::VERSION
 
-        o.on "-p", "--port PORT", "Listen on PORT (default #{options[:port]})" do |port|
+        o.on "-p PORT", "--port PORT", "Listen on PORT (default #{options[:port]})" do |port|
           options[:port] = port
         end
 
-        o.on "-s", "--samplers DIR", "Load samplers from DIR" do |samplers|
+        o.on "-s DIR", "--samplers DIR", "Load samplers from DIR" do |samplers|
           options[:samplers] = samplers.split(":")
         end
 
@@ -125,12 +125,16 @@ module Custodian
         end
 
         o.on "--authenticate USERNAME:PASSWORD", "Authenticate clients with the given USERNAME and PASSWORD" do |credentials|
+          unless credentials.include? ":"
+            raise OptionParser::InvalidArgument, "must be a colon-separated string of username and password"
+          end
+
           options[:username], options[:password] = credentials.split(":")
         end
       end.parse! arguments
 
       options
-    rescue OptionParser::InvalidOption => e
+    rescue OptionParser::ParseError => e
       error e
     end
 
