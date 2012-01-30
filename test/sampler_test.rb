@@ -1,4 +1,6 @@
 require "custodian"
+require "minitest/spec"
+require "minitest/autorun"
 
 describe Custodian::Samplers::Sampler do
 
