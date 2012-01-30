@@ -4,7 +4,7 @@ module Custodian
     class Load < Custodian::Samplers::Sampler
       describe "Load averages"
 
-      def sample
+      def self.sample
         uptime = `uptime`.match /load average: ([0-9.]+), ([0-9.]+), ([0-9.]+)/
 
         {

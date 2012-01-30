@@ -4,7 +4,7 @@ module Custodian
     class Who < Custodian::Samplers::Sampler
       describe "Logged in users"
 
-      def sample
+      def self.sample
         `who`.lines.collect { |line| line.split.first }.uniq
       end
     end

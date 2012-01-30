@@ -23,7 +23,7 @@ samplers are all the rage.
 class RegisteredUsers < Custodian::Samplers::Sampler
   describe "Registered users"
 
-  def sample
+  def self.sample
     Users.count
   end
 end

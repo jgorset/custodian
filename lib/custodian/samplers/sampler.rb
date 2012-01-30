@@ -5,25 +5,6 @@ module Custodian
     class Sampler
       include Custodian::Samplers::Utilities
 
-      # Make a sample from this sampler.
-      #
-      # Examples
-      #
-      #   CPU.sample # => { "User" => "10%", "System" => "5%", "Idle" => "85%" }
-      #
-      # Returns an Integer, Symbol, String, Hash or Array (or any combination thereof)
-      # describing the outcome of the sample.
-      def sample
-        nil
-      end
-
-      # Determine whether the sampler is compatible with this system.
-      #
-      # Returns true if it is compatible, or false if it isn't.
-      def compatible?
-        true
-      end
-
       class << self
 
         # Describe the sampler.
@@ -40,14 +21,23 @@ module Custodian
           @description
         end
 
-        # Proxy for Sampler#sample.
+        # Make a sample from this sampler.
+        #
+        # Examples
+        #
+        #   CPU.sample # => { "User" => "10%", "System" => "5%", "Idle" => "85%" }
+        #
+        # Returns an Integer, Symbol, String, Hash or Array (or any combination thereof)
+        # describing the outcome of the sample.
         def sample
-          new.sample
+          nil
         end
 
-        # Proxy for Sampler#compatible?
+        # Determine whether the sampler is compatible with this system.
+        #
+        # Returns true if it is compatible, or false if it isn't.
         def compatible?
-          new.compatible?
+          true
         end
 
       end

@@ -4,7 +4,7 @@ module Custodian
     class CPU < Custodian::Samplers::Sampler
       describe "CPU usage"
 
-      def sample
+      def self.sample
         cpu = `top -l 1`.match /CPU usage: ([0-9]+\.[0-9]+%) user, ([0-9]+\.[0-9]+%) sys, ([0-9]+\.[0-9]+%) idle/
         
         {

@@ -4,7 +4,7 @@ module Custodian
     class CPU < Custodian::Samplers::Sampler
       describe "CPU usage"
 
-      def sample
+      def self.sample
         top = `top -b -n1`.match /Cpu\(s\): +([0-9.]+)%us, +([0-9.]+)%sy, +([0-9.%]+)ni, +([0-9.]+)%id, +([0-9.]+)%wa, +([0-9.]+)%hi, +([0-9.]+)%si, +([0-9.]+)%st/
 
         us = top[1].to_f # User CPU time: The time the CPU has spent running users' processes that are not niced.

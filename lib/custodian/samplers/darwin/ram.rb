@@ -4,7 +4,7 @@ module Custodian
     class RAM < Custodian::Samplers::Sampler
       describe "RAM usage"
 
-      def sample
+      def self.sample
         vmstat = `vm_stat`
 
         pages_free      = vmstat[/Pages free: +([0-9]+)/, 1].to_i + vmstat[/Pages speculative: +([0-9]+)/, 1].to_i

@@ -5,6 +5,10 @@ describe Custodian::Samplers::Sampler do
   before do
     @sampler = Custodian::Samplers::Sampler
   end
+  
+  it "can sample" do
+    @sampler.sample
+  end
 
   it "can be described" do
     @sampler.description.should equal nil

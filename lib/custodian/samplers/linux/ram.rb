@@ -4,7 +4,7 @@ module Custodian
     class RAM < Custodian::Samplers::Sampler
       describe "RAM usage"
 
-      def sample
+      def self.sample
         free = `free -m`.match /Mem: +([0-9]+) +([0-9]+) +([0-9]+) +([0-9]+) +([0-9]+) +([0-9]+)/
 
         {
