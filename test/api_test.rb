@@ -19,6 +19,8 @@ describe Custodian::API do
   it "responds with valid JSON" do
     get "/"
 
-    JSON.parse(last_response.body).must_be_instance_of Array
+    response = JSON.parse last_response.body
+
+    response.must_be_instance_of Array
   end
 end
