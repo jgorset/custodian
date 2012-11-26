@@ -21,9 +21,11 @@ module Custodian
         "Content-Type" => "application/json"
       }
 
-      body = Custodian::Samplers.compatible.collect do |sampler|
+      hash = Custodian::Samplers.compatible.collect do |sampler|
         { description: sampler.description, sample: sampler.sample }
-      end.to_json
+      end
+
+      body = JSON.dump hash
 
       [status, headers, [body]]
     end
