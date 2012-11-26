@@ -26,7 +26,8 @@ class RegisteredUsers < Custodian::Samplers::Sampler
 end
 ```
 
-You can load your own samplers with the `--samplers` option.
+Samplers are just Ruby classes that inherit from ``Custodian::Samplers::Sampler`` and implement a ``sample``
+method, and you can load your own with the `--samplers` option.
 
     $ custodian --samplers=~/.samplers
 
