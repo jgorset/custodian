@@ -19,7 +19,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # specify any dependencies here; for example:
-  s.add_development_dependency "rspec"
   s.add_development_dependency "rack-test"
   s.add_runtime_dependency "thin"
   s.add_runtime_dependency "rack"
