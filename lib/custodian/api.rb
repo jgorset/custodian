@@ -21,9 +21,9 @@ module Custodian
         "Content-Type" => "application/json"
       }
 
-      body = Custodian::Samplers.list.collect do |sampler|
-        { description: sampler.description, sample: sampler.sample } if sampler.compatible?
-      end.compact.to_json
+      body = Custodian::Samplers.compatible.collect do |sampler|
+        { description: sampler.description, sample: sampler.sample }
+      end.to_json
 
       [status, headers, [body]]
     end

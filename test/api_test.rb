@@ -22,5 +22,6 @@ describe Custodian::API do
     response = JSON.parse last_response.body
 
     response.must_be_instance_of Array
+    response.count.must_equal 4
   end
 end
